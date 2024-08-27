@@ -1,13 +1,13 @@
 name: export-solution-and-unpack
 # Export solution from DEV environment
-#  unpack it and prepare, commit and push a git branch with the changes
+#  unpack it and prepare, commit, and push a git branch with the changes
 
 on:
   workflow_dispatch:
     inputs:
       # Change this value
       solution_name:
-        description: 'name of the solution to worked on from Power Platform'
+        description: 'name of the solution to work on from Power Platform'
         required: true
         default: ALI_G1
        #Do Not change these values
@@ -26,8 +26,6 @@ on:
 env:
 #edit your values here
   ENVIRONMENT_URL: 'https://dev-aliii.crm.dynamics.com/'
-  CLIENT_ID: 'c9bfe35c-4011-4cea-a0b0-1d9aeb92158d'
-  TENANT_ID: 'cf98c142-3126-40f8-be8d-bef563a8f7a5'
 permissions:
   contents: write
 jobs:
@@ -36,6 +34,8 @@ jobs:
     # or you can say runs-on: ubuntu-latest
     env:
       RUNNER_DEBUG: 1
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      TENANT_ID: ${{ secrets.TENANT_ID }}
 
     steps:
     - uses: actions/checkout@v2
@@ -47,16 +47,15 @@ jobs:
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
-        client-secret: ${{ secrets.PowerPlatformSPN }}
+        client-secret: ${{ secrets.SECRET_ID }}
         tenant-id: ${{env.TENANT_ID}}
-
 
     - name: export-solution action
       uses: microsoft/powerplatform-actions/export-solution@v0
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
         app-id: ${{env.CLIENT_ID}}
-        client-secret: ${{ secrets.PowerPlatformSPN }}
+        client-secret: ${{ secrets.SECRET_ID }}
         tenant-id: ${{env.TENANT_ID}}
         solution-name: ${{ github.event.inputs.solution_name }}
         solution-output-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
