@@ -8,7 +8,7 @@ on:
 permissions:
   contents: write
 jobs:
-  Release-solution-ALMLab:
+  Release-solution-PPSolutions:
     uses: ./.github/workflows/release-solution-to-staging-env.yml
     with:
       #You can specify the solution name here
@@ -17,7 +17,7 @@ jobs:
       BUILD_ENVIRONMENT_URL: https://dev-aliii.crm.dynamics.com/
       DVM_ENVIRONMENT_URL: https://dvm-aliii.crm.dynamics.com/
       PRODUCTION_ENVIRONMENT_URL: https://prod-aliii.crm.dynamics.com/
-      CLIENT_ID: c9bfe35c-4011-4cea-a0b0-1d9aeb92158d
-      TENANT_ID: cf98c142-3126-40f8-be8d-bef563a8f7a5      
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      TENANT_ID: ${{ secrets.TENANT_ID }}     
     secrets:
-      envSecret: ${{ secrets.PowerPlatformSPN }}
+      envSecret: ${{ secrets.SECRET_ID }}
