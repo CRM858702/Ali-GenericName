@@ -19,5 +19,7 @@ jobs:
       PRODUCTION_ENVIRONMENT_URL: https://prod-aliii.crm.dynamics.com/
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       TENANT_ID: ${{ secrets.TENANT_ID }}
+      
+    secrets:
       envSecret: ${{ secrets.SECRET_ID }}
       
