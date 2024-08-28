@@ -1,25 +1,23 @@
 name: Release action
-# Call the reusable workflow release-solution-with-inputs.yml
-# Release your solution to prod when you create a new release.
 
 on:
   release:
-    types: [created]        
+    types: [created]
+    
 permissions:
   contents: write
+
 jobs:
   Release-solution-ALMLab:
     uses: ./.github/workflows/release-solution-to-staging-env.yml
     with:
-      #You can specify the solution name here
+      # Specify the solution name here
       solution_name: ALI_G1
-      #Update your values here
+      # Update your values here
       BUILD_ENVIRONMENT_URL: https://dev-aliii.crm.dynamics.com/
       DVM_ENVIRONMENT_URL: https://dvm-aliii.crm.dynamics.com/
       PRODUCTION_ENVIRONMENT_URL: https://prod-aliii.crm.dynamics.com/
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       TENANT_ID: ${{ secrets.TENANT_ID }}
-      
-    secrets:
       envSecret: ${{ secrets.SECRET_ID }}
-      
+    secrets: inherit
