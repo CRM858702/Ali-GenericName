@@ -17,9 +17,7 @@ jobs:
       BUILD_ENVIRONMENT_URL: https://dev-aliii.crm.dynamics.com/
       DVM_ENVIRONMENT_URL: https://dvm-aliii.crm.dynamics.com/
       PRODUCTION_ENVIRONMENT_URL: https://prod-aliii.crm.dynamics.com/
-      
-      secrets: inherit
-env:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       TENANT_ID: ${{ secrets.TENANT_ID }}
       envSecret: ${{ secrets.SECRET_ID }}
+      
