@@ -68,7 +68,18 @@ jobs:
         with:
           solution-folder: ${{ inputs.solution_source_folder }}${{ inputs.solution_name }}
           solution-file: ${{ inputs.solution_outbound_folder }}${{ inputs.solution_name }}.zip
-          solution-type: Unmanaged    
+          solution-type: Unmanaged   
+
+      - name: Import solution as unmanaged to build env
+        uses: microsoft/powerplatform-actions/import-solution@v0
+        with:
+          environment-url: ${{inputs.DVM_ENVIRONMENT_URL}}
+          app-id: ${{inputs.CLIENT_ID}}
+          client-secret: ${{ secrets.envSecret }}
+          tenant-id: ${{inputs.TENANT_ID}}
+          solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
+          force-overwrite: true
+          publish-changes: true
 
       - name: Export solution as managed
         uses: microsoft/powerplatform-actions/export-solution@v0
@@ -104,16 +115,16 @@ jobs:
           name: managedSolutions
           path: ${{ inputs.solution_release_folder }}
           
-      - name: Import solution to DVM environment
-        uses: microsoft/powerplatform-actions/import-solution@v0
-        with:
-          environment-url: ${{ inputs.DVM_ENVIRONMENT_URL }}
-          app-id: ${{ inputs.CLIENT_ID }}
-          client-secret: ${{ secrets.envSecret }}
-          tenant-id: ${{ inputs.TENANT_ID }}
-          solution-file: ${{ inputs.solution_release_folder }}/${{ inputs.solution_name }}_managed.zip
-          force-overwrite: true
-          publish-changes: true
+      #- name: Import solution to DVM environment
+      #  uses: microsoft/powerplatform-actions/import-solution@v0
+      #  with:
+      #    environment-url: ${{ inputs.DVM_ENVIRONMENT_URL }}
+      #    app-id: ${{ inputs.CLIENT_ID }}
+      #    client-secret: ${{ secrets.envSecret }}
+      #    tenant-id: ${{ inputs.TENANT_ID }}
+      #    solution-file: ${{ inputs.solution_release_folder }}/${{ inputs.solution_name }}_managed.zip
+       #   force-overwrite: true
+       #   publish-changes: true
 
   release-to-prod:
     needs: [release-to-staging]
