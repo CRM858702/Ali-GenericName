@@ -3,7 +3,7 @@ name: Release action
 on:
   release:
     types: [created]
-    
+
 permissions:
   contents: write
 
@@ -11,13 +11,11 @@ jobs:
   Release-solution-ALMLab:
     uses: ./.github/workflows/release-solution-to-staging-env.yml
     with:
-      # Specify the solution name here
       solution_name: ALI_G1
-      # Update your values here
       BUILD_ENVIRONMENT_URL: https://dev-aliii.crm.dynamics.com/
       DVM_ENVIRONMENT_URL: https://dvm-aliii.crm.dynamics.com/
       PRODUCTION_ENVIRONMENT_URL: https://prod-aliii.crm.dynamics.com/
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       TENANT_ID: ${{ secrets.TENANT_ID }}
-    secrets:
-      envSecret: ${{ secrets.SECRET_ID }}  # This ensures SECRET_ID is passed to the reusable workflow
+      envSecret: ${{ secrets.SECRET_ID }}
+    secrets: inherit
