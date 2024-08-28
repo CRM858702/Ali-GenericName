@@ -19,5 +19,5 @@ jobs:
       PRODUCTION_ENVIRONMENT_URL: https://prod-aliii.crm.dynamics.com/
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       TENANT_ID: ${{ secrets.TENANT_ID }}
-      envSecret: ${{ secrets.SECRET_ID }}
-    secrets: inherit
+    secrets:
+      envSecret: ${{ secrets.SECRET_ID }}  # This ensures SECRET_ID is passed to the reusable workflow
